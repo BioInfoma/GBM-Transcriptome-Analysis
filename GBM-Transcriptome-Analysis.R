@@ -176,13 +176,35 @@ up.EA <- TCGAanalyze_EAcomplete(TFname="UPREGULATED", upreg.genes)
 dn.EA <- TCGAanalyze_EAcomplete(TFname="DOWNREGULATED", dnreg.genes)
 
 #now we can visullize our results
-TCGAvisualize_EAbarplot(tf = rownames(up.EA$ResBP), 
-                        GOBPTab = up.EA$ResBP,
-                        GOCCTab = up.EA$ResCC,
-                        GOMFTab = up.EA$ResMF,
-                        PathTab = up.EA$ResPat,
-                        nRGTab = upreg.genes, 
-                        nBar = 5,
-                        text.size = 2,
-                        fig.width = 30,
-                        fig.height = 15)
+TCGAvisualize_EAbarplot(tf = rownames())
+
+
+#=========================007=======================================
+#MACHINE LEARNING
+#change of data
+table(gbm.data$tumor_descriptor)
+
+
+#we will be using this low grade glioblasstoma dataset
+
+lgg.data <- readRDS('LGGrnaseq.rds')
+meta <- readRDS("patient2LGGsubtypes.rds")
+
+#=========================007=======================================
+#predicting tumor status as either methylated or non-methylated
+
+install.packages("caret")
+install.packages("DALEX")
+install.packages("pROC")
+
+library(caret)
+library(pROC)
+library(DALEX)
+set.seed(34567)
+
+#UNSUPERVISED MACHINE LEARNING
+##k- nearest neighbour
+#how many samples do we have under each dataset
+
+table(meta$subtype)
+
